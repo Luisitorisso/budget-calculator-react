@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { useTransactions } from './hooks/useTransactions';
@@ -18,12 +18,15 @@ import { BalanceDonutChart } from './components/Charts/BalanceDonutChart';
 import { TrendLineChart } from './components/Charts/TrendLineChart';
 import { CategoryBarChart } from './components/Charts/CategoryBarChart';
 import { ComparativeChart } from './components/Charts/ComparativeChart';
-// COMPONENTES DE IA
-import { AIInsightsPanel, AIAlerts, PredictiveChart } from './components/AI';
-import { useAIInsights } from './hooks/useAIInsights';
+// COMPONENTES DE IA - TEMPORALMENTE DESHABILITADOS
+// import { AIInsightsPanel, AIAlerts, PredictiveChart } from './components/AI';
+// import { useAIInsights } from './hooks/useAIInsights';
 // FEATURES PREMIUM
 import { GoalManager } from './features/goals/GoalManager';
 import { ExportManager } from './features/export/ExportManager';
+// GAMIFICACIÓN
+import { GamificationDashboard, AchievementNotifications } from './features/gamification';
+import { useAchievements } from './hooks/gamification/useAchievements';
 
 /**
  * Componente principal de la aplicación con autenticación
@@ -48,6 +51,9 @@ function AppContent() {
     balance,
     categoryAnalysis,
   } = useTransactions();
+
+  // Hook de gamificación
+  const achievements = useAchievements();
 
   // Funciones para tarjetas de crédito
   const handleAddCard = (card) => {
@@ -87,17 +93,39 @@ function AppContent() {
     }
   };
 
+  // Wrappers para transacciones que registran en gamificación
+  const handleAddIncome = (description, amount, date) => {
+    const result = addIncome(description, amount, date);
+    if (result) {
+      achievements.recordTransaction('income');
+    }
+    return result;
+  };
+
+  const handleAddExpense = (description, category, amount, date) => {
+    const result = addExpense(description, category, amount, date);
+    if (result) {
+      achievements.recordTransaction('expense');
+    }
+    return result;
+  };
+
   // HOOK DE IA - Combinar todas las transacciones
+  // TEMPORALMENTE DESHABILITADO - Necesita VITE_ANTHROPIC_API_KEY
+  /*
   const allTransactions = useMemo(() => {
     return [
       ...incomes.map(t => ({ ...t, type: 'income' })),
       ...expenses.map(t => ({ ...t, type: 'expense' }))
     ];
   }, [incomes, expenses]);
+  */
 
-  const aiInsights = useAIInsights(allTransactions, user?.id);
+  // TEMPORALMENTE DESHABILITADO - Necesita VITE_ANTHROPIC_API_KEY
+  // const aiInsights = useAIInsights(allTransactions, user?.id);
 
   // ✅ PREPARAR DATOS MENSUALES PARA PREDICCIONES
+  /* TEMPORALMENTE DESHABILITADO - Necesita VITE_ANTHROPIC_API_KEY
   const monthlyData = useMemo(() => {
     const months = {};
     
@@ -118,6 +146,7 @@ function AppContent() {
     
     return Object.values(months).sort((a, b) => a.month.localeCompare(b.month));
   }, [incomes, expenses]);
+  */
 
   // Verificar si hay datos pendientes de migración
   useEffect(() => {
@@ -125,6 +154,20 @@ function AppContent() {
       setShowMigration(true);
     }
   }, [user]);
+
+  // Sincronizar estadísticas con el sistema de logros
+  useEffect(() => {
+    const goalsCompleted = goals.filter(g => g.currentAmount >= g.targetAmount).length;
+    achievements.updateStats({
+      totalIncomes: incomes.length,
+      totalExpenses: expenses.length,
+      totalGoals: goals.length,
+      goalsCompleted,
+      currentBalance: balance,
+      creditCardsAdded: creditCards.length,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [incomes.length, expenses.length, goals.length, balance, creditCards.length]);
 
   // Mostrar página de autenticación si no hay usuario
   if (!user && !authLoading) {
@@ -166,6 +209,15 @@ function AppContent() {
         />
       )}
 
+      {/* Notificaciones de logros */}
+      <AchievementNotifications
+        achievements={achievements.newAchievements}
+        onRemove={(index) => {
+          const newAchievements = [...achievements.newAchievements];
+          newAchievements.splice(index, 1);
+        }}
+      />
+
       {/* Container principal */}
       <div className="max-w-7xl mx-auto">
         {/* Header con Profile Menu */}
@@ -184,11 +236,13 @@ function AppContent() {
               <ThemeToggle />
               
               {/* ✅ ALERTAS DE IA */}
+              {/* TEMPORALMENTE DESHABILITADO - Necesita VITE_ANTHROPIC_API_KEY
               <AIAlerts
                 alerts={aiInsights.alerts}
                 loading={aiInsights.checkingAnomalies}
                 onRefresh={aiInsights.checkAnomalies}
               />
+              */}
               <ProfileMenu />
             </div>
           </div>
@@ -204,17 +258,19 @@ function AppContent() {
           />
 
           {/* ✅ PANEL DE ANÁLISIS FINANCIERO CON IA */}
+          {/* TEMPORALMENTE DESHABILITADO - Necesita VITE_ANTHROPIC_API_KEY
           <AIInsightsPanel
             analysis={aiInsights.analysis}
             loading={aiInsights.analyzing}
             error={aiInsights.analysisError}
             onAnalyze={() => aiInsights.runAnalysis({ totalIncome, totalExpenses, balance })}
           />
+          */}
 
           {/* FORMULARIOS PARA AGREGAR TRANSACCIONES */}
           <TransactionForm
-            onAddIncome={addIncome}
-            onAddExpense={addExpense}
+            onAddIncome={handleAddIncome}
+            onAddExpense={handleAddExpense}
           />
 
           {/* GESTOR DE TARJETAS DE CRÉDITO */}
@@ -244,6 +300,18 @@ function AppContent() {
             balance={balance}
           />
 
+          {/* DASHBOARD DE GAMIFICACIÓN */}
+          <GamificationDashboard
+            currentLevel={achievements.currentLevel}
+            totalPoints={achievements.totalPoints}
+            pointsForNext={achievements.pointsForNext}
+            levelProgress={achievements.levelProgress}
+            currentStreak={achievements.stats.currentStreak}
+            longestStreak={achievements.stats.longestStreak}
+            unlockedAchievements={achievements.unlockedAchievements}
+            isAchievementUnlocked={achievements.isAchievementUnlocked}
+          />
+
           {/* Sección de Gráficos Avanzados */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Gráfico de Dona - Balance General */}
@@ -264,6 +332,7 @@ function AppContent() {
           />
 
           {/* ✅ GRÁFICO DE PREDICCIONES CON IA */}
+          {/* TEMPORALMENTE DESHABILITADO - Necesita VITE_ANTHROPIC_API_KEY
           {monthlyData.length >= 2 && (
             <PredictiveChart
               predictions={aiInsights.predictions}
@@ -273,6 +342,7 @@ function AppContent() {
               historicalData={monthlyData}
             />
           )}
+          */}
 
           {/* Gráficos de Barras y Comparativa */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

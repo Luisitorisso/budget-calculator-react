@@ -62,6 +62,12 @@ export const useAIInsights = (transactions = []) => {
       return
     }
 
+    // Verificar si hay API key configurada
+    if (!import.meta.env.VITE_ANTHROPIC_API_KEY) {
+      setAnalysisError('API de IA no configurada')
+      return
+    }
+
     try {
       setAnalyzing(true)
       setAnalysisError(null)
@@ -89,6 +95,11 @@ export const useAIInsights = (transactions = []) => {
       return
     }
 
+    // Verificar si hay API key configurada
+    if (!import.meta.env.VITE_ANTHROPIC_API_KEY) {
+      return null
+    }
+
     try {
       setCategorizing(true)
       const suggestion = await suggestCategory(description, availableCategories)
@@ -108,6 +119,12 @@ export const useAIInsights = (transactions = []) => {
   const predictExpenses = useCallback(async (monthlyData) => {
     if (!user) {
       setPredictionError('Debes estar autenticado para usar esta función')
+      return
+    }
+
+    // Verificar si hay API key configurada
+    if (!import.meta.env.VITE_ANTHROPIC_API_KEY) {
+      setPredictionError('API de IA no configurada')
       return
     }
 
@@ -132,6 +149,12 @@ export const useAIInsights = (transactions = []) => {
   const createReport = useCallback(async (period = 'mensual') => {
     if (!user) {
       setReportError('Debes estar autenticado para usar esta función')
+      return
+    }
+
+    // Verificar si hay API key configurada
+    if (!import.meta.env.VITE_ANTHROPIC_API_KEY) {
+      setReportError('API de IA no configurada')
       return
     }
 
@@ -164,6 +187,12 @@ export const useAIInsights = (transactions = []) => {
       return
     }
 
+    // Verificar si hay API key configurada
+    if (!import.meta.env.VITE_ANTHROPIC_API_KEY) {
+      setAlerts([])
+      return
+    }
+
     try {
       setAlertsLoading(true)
       setAlertsError(null)
@@ -187,6 +216,9 @@ export const useAIInsights = (transactions = []) => {
    * (cada 7 días o cuando hay cambios significativos)
    */
   useEffect(() => {
+    // No ejecutar si no hay API key configurada
+    if (!import.meta.env.VITE_ANTHROPIC_API_KEY) return
+    
     if (!user || !transactions || transactions.length === 0) return
 
     const lastCheck = localStorage.getItem('lastAnomalyCheck')
