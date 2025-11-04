@@ -28,20 +28,20 @@ export const ComparativeChart = ({ incomes, expenses }) => {
   return (
     <ChartContainer
       title="Comparativa Mensual"
-      icon="📅"
       isEmpty={isEmpty}
       emptyMessage="Necesitas transacciones en al menos dos meses"
-      height="h-80"
+      height="h-96"
     >
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" height="85%">
         <BarChart
           data={data}
-          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+          margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
+          barCategoryGap="25%"
         >
           <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
           <XAxis 
             dataKey="name" 
-            tick={{ fontSize: 12 }}
+            tick={{ fontSize: 14, fontWeight: 500 }}
             stroke="#9ca3af"
           />
           <YAxis 
@@ -51,7 +51,7 @@ export const ComparativeChart = ({ incomes, expenses }) => {
           />
           <Tooltip content={<ComparativeTooltip />} />
           <Legend 
-            wrapperStyle={{ paddingTop: '10px' }}
+            wrapperStyle={{ paddingTop: '15px', fontSize: '14px' }}
             formatter={(value) => {
               if (value === 'mesActual') return currentMonth;
               if (value === 'mesAnterior') return previousMonth;
@@ -65,12 +65,14 @@ export const ComparativeChart = ({ incomes, expenses }) => {
             radius={[8, 8, 0, 0]}
             animationBegin={0}
             animationDuration={800}
+            barSize={60}
           />
           <Bar 
             dataKey="mesActual" 
             radius={[8, 8, 0, 0]}
             animationBegin={200}
             animationDuration={800}
+            barSize={60}
           >
             {data.map((entry, index) => (
               <Cell 
@@ -84,7 +86,7 @@ export const ComparativeChart = ({ incomes, expenses }) => {
       </ResponsiveContainer>
 
       {/* Indicadores de variación */}
-      <div className="mt-4 grid grid-cols-2 gap-4 px-4">
+      <div className="grid grid-cols-2 gap-4 px-4 pt-2">
         {data.map((item, index) => (
           <VariationIndicator 
             key={index}
