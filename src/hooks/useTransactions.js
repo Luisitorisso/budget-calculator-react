@@ -27,7 +27,7 @@ export const useTransactions = () => {
   /**
    * Agrega un nuevo ingreso
    */
-  const addIncome = useCallback((description, amount) => {
+  const addIncome = useCallback((description, amount, date = null) => {
     const validation = validateTransaction({ description, amount });
     
     if (!validation.isValid) {
@@ -40,7 +40,7 @@ export const useTransactions = () => {
       description: description.trim(),
       amount: parseFloat(amount),
       type: TRANSACTION_TYPES.INCOME,
-      date: new Date().toISOString().split('T')[0], // Formato: YYYY-MM-DD
+      date: date || new Date().toISOString().split('T')[0], // Formato: YYYY-MM-DD
       createdAt: new Date().toISOString(),
     };
 
@@ -52,7 +52,7 @@ export const useTransactions = () => {
   /**
    * Agrega un nuevo gasto
    */
-  const addExpense = useCallback((description, category, amount) => {
+  const addExpense = useCallback((description, category, amount, date = null) => {
     const validation = validateTransaction({ description, category, amount }, true);
     
     if (!validation.isValid) {
@@ -66,7 +66,7 @@ export const useTransactions = () => {
       category,
       amount: parseFloat(amount),
       type: TRANSACTION_TYPES.EXPENSE,
-      date: new Date().toISOString().split('T')[0], // Formato: YYYY-MM-DD
+      date: date || new Date().toISOString().split('T')[0], // Formato: YYYY-MM-DD
       createdAt: new Date().toISOString(),
     };
 

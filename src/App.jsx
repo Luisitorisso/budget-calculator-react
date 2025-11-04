@@ -10,12 +10,13 @@ import { ProfileMenu } from './components/Auth/ProfileMenu';
 import MigrationDialog from './components/MigrationDialog';
 import AuthPage from './pages/AuthPage';
 import { hasPendingMigration } from './utils/dataMigration';
+import { CreditCardManager } from './components/CreditCard/CreditCardManager';
 // Nuevos gráficos avanzados
 import { BalanceDonutChart } from './components/Charts/BalanceDonutChart';
 import { TrendLineChart } from './components/Charts/TrendLineChart';
 import { CategoryBarChart } from './components/Charts/CategoryBarChart';
 import { ComparativeChart } from './components/Charts/ComparativeChart';
-// ✅ COMPONENTES DE IA
+// COMPONENTES DE IA
 import { AIInsightsPanel, AIAlerts, PredictiveChart } from './components/AI';
 import { useAIInsights } from './hooks/useAIInsights';
 
@@ -25,6 +26,7 @@ import { useAIInsights } from './hooks/useAIInsights';
 function AppContent() {
   const { user, loading: authLoading } = useAuth();
   const [showMigration, setShowMigration] = useState(false);
+  const [creditCards, setCreditCards] = useState([]);
 
   const {
     incomes,
@@ -41,7 +43,25 @@ function AppContent() {
     categoryAnalysis,
   } = useTransactions();
 
-  // ✅ HOOK DE IA - Combinar todas las transacciones
+  // Funciones para tarjetas de crédito
+  const handleAddCard = (card) => {
+    setCreditCards([...creditCards, card]);
+    showAlert(`Tarjeta "${card.name}" agregada exitosamente`, 'success');
+    return true;
+  };
+
+  const handleUpdateDebt = (cardId, newDebt) => {
+    setCreditCards(creditCards.map(card =>
+      card.id === cardId ? { ...card, debt: newDebt } : card
+    ));
+  };
+
+  const handleRemoveCard = (cardId) => {
+    setCreditCards(creditCards.filter(card => card.id !== cardId));
+    showAlert('Tarjeta eliminada', 'success');
+  };
+
+  // HOOK DE IA - Combinar todas las transacciones
   const allTransactions = useMemo(() => {
     return [
       ...incomes.map(t => ({ ...t, type: 'income' })),
@@ -161,11 +181,19 @@ function AppContent() {
             error={aiInsights.analysisError}
             onAnalyze={() => aiInsights.runAnalysis({ totalIncome, totalExpenses, balance })}
           />
-          {/* Card de balance */}
-          <BalanceCard
-            totalIncome={totalIncome}
-            totalExpenses={totalExpenses}
-            balance={balance}
+
+          {/* FORMULARIOS PARA AGREGAR TRANSACCIONES */}
+          <TransactionForm
+            onAddIncome={addIncome}
+            onAddExpense={addExpense}
+          />
+
+          {/* GESTOR DE TARJETAS DE CRÉDITO */}
+          <CreditCardManager
+            creditCards={creditCards}
+            onAddCard={handleAddCard}
+            onUpdateDebt={handleUpdateDebt}
+            onRemoveCard={handleRemoveCard}
           />
 
           {/* Sección de Gráficos Avanzados */}

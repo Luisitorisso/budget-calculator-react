@@ -11,21 +11,24 @@ export const TransactionForm = ({ onAddIncome, onAddExpense }) => {
   // Estados para ingresos
   const [incomeDescription, setIncomeDescription] = useState('');
   const [incomeAmount, setIncomeAmount] = useState('');
+  const [incomeDate, setIncomeDate] = useState(new Date().toISOString().split('T')[0]);
 
   // Estados para gastos
   const [expenseDescription, setExpenseDescription] = useState('');
   const [expenseCategory, setExpenseCategory] = useState('Vivienda');
   const [expenseAmount, setExpenseAmount] = useState('');
+  const [expenseDate, setExpenseDate] = useState(new Date().toISOString().split('T')[0]);
 
   /**
    * Manejar submit de ingreso
    */
   const handleIncomeSubmit = (e) => {
     e.preventDefault();
-    const success = onAddIncome(incomeDescription, incomeAmount);
+    const success = onAddIncome(incomeDescription, incomeAmount, incomeDate);
     if (success) {
       setIncomeDescription('');
       setIncomeAmount('');
+      setIncomeDate(new Date().toISOString().split('T')[0]);
     }
   };
 
@@ -34,10 +37,11 @@ export const TransactionForm = ({ onAddIncome, onAddExpense }) => {
    */
   const handleExpenseSubmit = (e) => {
     e.preventDefault();
-    const success = onAddExpense(expenseDescription, expenseCategory, expenseAmount);
+    const success = onAddExpense(expenseDescription, expenseCategory, expenseAmount, expenseDate);
     if (success) {
       setExpenseDescription('');
       setExpenseAmount('');
+      setExpenseDate(new Date().toISOString().split('T')[0]);
     }
   };
 
@@ -88,6 +92,19 @@ export const TransactionForm = ({ onAddIncome, onAddExpense }) => {
               placeholder="0.00"
               step="0.01"
               min="0"
+              className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary-500 focus:ring-4 focus:ring-primary-100 outline-none transition-all"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="incomeDate" className="block text-sm font-medium text-gray-700 mb-2">
+              Fecha
+            </label>
+            <input
+              type="date"
+              id="incomeDate"
+              value={incomeDate}
+              onChange={(e) => setIncomeDate(e.target.value)}
               className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary-500 focus:ring-4 focus:ring-primary-100 outline-none transition-all"
             />
           </div>
@@ -147,6 +164,19 @@ export const TransactionForm = ({ onAddIncome, onAddExpense }) => {
               placeholder="0.00"
               step="0.01"
               min="0"
+              className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary-500 focus:ring-4 focus:ring-primary-100 outline-none transition-all"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="expenseDate" className="block text-sm font-medium text-gray-700 mb-2">
+              Fecha
+            </label>
+            <input
+              type="date"
+              id="expenseDate"
+              value={expenseDate}
+              onChange={(e) => setExpenseDate(e.target.value)}
               className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary-500 focus:ring-4 focus:ring-primary-100 outline-none transition-all"
             />
           </div>
