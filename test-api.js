@@ -3,7 +3,7 @@
 
 import { callClaude } from './src/lib/anthropic.js'
 
-console.log('🔍 Verificando API Key de Anthropic...')
+console.log(' Verificando API Key de Anthropic...')
 
 // Test simple
 const messages = [
@@ -15,8 +15,8 @@ const messages = [
 
 try {
   const response = await callClaude(messages, 50, false)
-  console.log('✅ SUCCESS:', response.content[0].text)
-  console.log('📊 Tokens usados:', response.usage.input_tokens + response.usage.output_tokens)
+  console.log(' SUCCESS:', response.content[0].text)
+  console.log(' Tokens usados:', response.usage.input_tokens + response.usage.output_tokens)
 } catch (error) {
-  console.error('❌ ERROR:', error.message)
+  console.error(' ERROR:', error.message)
 }
