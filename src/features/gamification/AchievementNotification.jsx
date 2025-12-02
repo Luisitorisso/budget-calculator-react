@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import PropTypes from 'prop-types';
+import { TrophyWebP, WebPWithGlow } from '../../components/Shared/WebPAnimation';
 
 /**
  * Notificación que aparece cuando se desbloquea un logro
@@ -16,9 +17,14 @@ export const AchievementNotification = ({ achievement, onClose }) => {
       className="fixed top-20 right-4 z-50 bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 dark:from-yellow-500 dark:via-orange-500 dark:to-red-500 rounded-xl shadow-2xl p-4 max-w-sm"
     >
       <div className="flex items-start gap-3">
-        {/* Icono del logro */}
-        <div className="text-5xl flex-shrink-0 animate-bounce">
-          {achievement.icon}
+        {/* Icono del logro con animación Simpson */}
+        <div className="flex-shrink-0">
+          <WebPWithGlow
+            src="/animations/Rocket.webp"
+            alt="Logro"
+            size="lg"
+            glowColor="yellow"
+          />
         </div>
         
         {/* Contenido */}

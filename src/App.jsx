@@ -28,6 +28,8 @@ import ImportManager from './features/import/ImportManager';
 // GAMIFICACIÓN
 import { GamificationDashboard, AchievementNotifications } from './features/gamification';
 import { useAchievements } from './hooks/gamification/useAchievements';
+// TEST DE ANIMACIONES (Temporal)
+import AnimationsTest from './pages/AnimationsTest';
 
 /**
  * Componente principal de la aplicación con autenticación
@@ -37,6 +39,7 @@ function AppContent() {
   const [showMigration, setShowMigration] = useState(false);
   const [creditCards, setCreditCards] = useState([]);
   const [goals, setGoals] = useState([]);
+  const [showAnimationsTest, setShowAnimationsTest] = useState(false);
 
   const {
     incomes,
@@ -55,6 +58,17 @@ function AppContent() {
 
   // Hook de gamificación
   const achievements = useAchievements();
+
+  // ATAJO: Presionar Alt+A para ver página de test de animaciones
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.altKey && e.key === 'a') {
+        setShowAnimationsTest(prev => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, []);
 
   // Combinar todas las transacciones para IA
   const allTransactions = [
@@ -213,19 +227,35 @@ function AppContent() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [incomes.length, expenses.length, goals.length, balance, creditCards.length]);
 
+  // TEMPORALMENTE DESHABILITADO - Para tomar screenshots sin autenticación
   // Mostrar página de autenticación si no hay usuario
-  if (!user && !authLoading) {
-    return <AuthPage />;
-  }
+  // if (!user && !authLoading) {
+  //   return <AuthPage />;
+  // }
 
   // Mostrar loading mientras se verifica la autenticación
-  if (authLoading) {
+  // if (authLoading) {
+  //   return (
+  //     <div className="min-h-screen flex items-center justify-center">
+  //       <div className="text-center">
+  //         <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+  //         <p className="text-gray-600">Cargando...</p>
+  //       </div>
+  //     </div>
+  //   );
+  // }
+
+  // PÁGINA DE TEST DE ANIMACIONES (Alt + A para toggle)
+  if (showAnimationsTest) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Cargando...</p>
-        </div>
+      <div>
+        <button
+          onClick={() => setShowAnimationsTest(false)}
+          className="fixed top-4 right-4 z-50 bg-red-500 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-red-600 transition-colors"
+        >
+          ← Volver a la App
+        </button>
+        <AnimationsTest />
       </div>
     );
   }
@@ -264,6 +294,15 @@ function AppContent() {
 
       {/* Container principal */}
       <div className="max-w-7xl mx-auto">
+        {/* Botón flotante para ver animaciones (DEV) */}
+        <button
+          onClick={() => setShowAnimationsTest(true)}
+          className="fixed bottom-4 right-4 z-40 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold px-6 py-3 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 flex items-center gap-2"
+          title="Ver todas las animaciones WebP (Alt + A)"
+        >
+          🎨 Animaciones
+        </button>
+
         {/* Header con Profile Menu */}
         <header className="bg-gradient-dark dark:bg-gray-800 text-white rounded-2xl p-8 mb-8 shadow-xl">
           <div className="flex justify-between items-center">
@@ -311,6 +350,7 @@ function AppContent() {
             totalIncome={totalIncome}
             totalExpenses={totalExpenses}
             balance={balance}
+            creditCardDebt={creditCards.reduce((sum, card) => sum + card.debt, 0)}
           />
 
           {/* ✅ PANEL DE ANÁLISIS FINANCIERO CON IA */}

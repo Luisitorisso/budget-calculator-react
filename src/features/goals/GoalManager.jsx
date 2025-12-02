@@ -5,6 +5,7 @@ import Confetti from 'react-confetti';
 import { Card } from '../../components/Shared/Card';
 import { Button } from '../../components/Shared/Button';
 import { GoalProgress } from './GoalProgress';
+import { RocketWebP, TrophyWebP } from '../../components/Shared/WebPAnimation';
 
 /**
  * Componente para gestionar metas financieras
@@ -91,7 +92,11 @@ export const GoalManager = ({ goals, onAddGoal, onUpdateProgress, onDeleteGoal, 
         />
       )}
 
-      <Card title="🎯 Metas Financieras">
+      <Card>
+        <div className="flex items-center gap-3 mb-6">
+          <RocketWebP size="sm" />
+          <h3 className="text-xl font-bold text-gray-800 dark:text-white">Metas Financieras</h3>
+        </div>
         <div className="space-y-4">
           {/* Lista de metas */}
           <AnimatePresence mode="popLayout">

@@ -39,8 +39,8 @@ export default defineConfig({
   
   // Server config para desarrollo
   server: {
-    port: 5173,
-    strictPort: true,
+    port: 5174, // Cambiado temporalmente para evitar cache
+    strictPort: false,
     open: true,
   },
   

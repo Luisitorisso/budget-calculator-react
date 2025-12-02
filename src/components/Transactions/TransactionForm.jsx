@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Card } from '../Shared/Card';
 import { Button } from '../Shared/Button';
 import { EXPENSE_CATEGORIES } from '../../constants/categories';
+import { CoinsWebP, DonutWebP } from '../Shared/WebPAnimation';
 
 /**
  * Componente TransactionForm - Formularios para agregar ingresos y gastos
@@ -62,7 +63,11 @@ export const TransactionForm = ({ onAddIncome, onAddExpense }) => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {/* Formulario de Ingresos */}
-      <Card title="Ingresos">
+      <Card>
+        <div className="flex items-center gap-3 mb-6">
+          <CoinsWebP size="sm" />
+          <h3 className="text-xl font-bold text-gray-800 dark:text-white">Ingresos</h3>
+        </div>
         <form onSubmit={handleIncomeSubmit} className="space-y-4">
           <div>
             <label htmlFor="incomeDescription" className="block text-sm font-medium text-gray-700 mb-2">
@@ -116,7 +121,11 @@ export const TransactionForm = ({ onAddIncome, onAddExpense }) => {
       </Card>
 
       {/* Formulario de Gastos */}
-      <Card title="Gastos">
+      <Card>
+        <div className="flex items-center gap-3 mb-6">
+          <DonutWebP size="sm" />
+          <h3 className="text-xl font-bold text-gray-800 dark:text-white">Gastos</h3>
+        </div>
         <form onSubmit={handleExpenseSubmit} className="space-y-4">
           <div>
             <label htmlFor="expenseDescription" className="block text-sm font-medium text-gray-700 mb-2">
