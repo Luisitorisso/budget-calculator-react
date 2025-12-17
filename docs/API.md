@@ -1,10 +1,10 @@
-# 🔌 Documentación de APIs e Integraciones
+# Documentación de APIs e Integraciones
 
 Esta guía documenta todas las integraciones externas del proyecto.
 
 ---
 
-## 📦 Tabla de Contenidos
+## Tabla de Contenidos
 
 1. [Supabase - Base de datos y autenticación](#supabase)
 2. [Anthropic Claude - IA](#anthropic-claude)
@@ -13,7 +13,7 @@ Esta guía documenta todas las integraciones externas del proyecto.
 
 ---
 
-## 🗄️ Supabase
+## Supabase
 
 Supabase proporciona backend completo: base de datos PostgreSQL, autenticación, storage y real-time.
 
@@ -215,7 +215,7 @@ const { data, error } = await supabase
 
 ---
 
-## 🤖 Anthropic Claude
+## Anthropic Claude
 
 Integración de IA para análisis financiero inteligente.
 
@@ -237,7 +237,7 @@ export const anthropic = new Anthropic({
 })
 ```
 
-⚠️ **Seguridad:** En producción, las llamadas a Claude deben hacerse desde un backend para no exponer la API key.
+Nota de seguridad: En producción, las llamadas a Claude deben hacerse desde un backend para no exponer la API key.
 
 ---
 
@@ -292,7 +292,7 @@ const predictNextMonth = async (monthlyData) => {
 
 ---
 
-## 💳 Stripe
+## Stripe
 
 Procesamiento de pagos para suscripciones premium.
 
@@ -349,7 +349,7 @@ const handleSubscribe = async (priceId) => {
 
 ---
 
-## 🌐 APIs Públicas
+## APIs Públicas
 
 ### Exchange Rates (Opcional)
 
@@ -367,7 +367,7 @@ const fetchExchangeRates = async () => {
 
 ---
 
-## 🔐 Seguridad
+## Seguridad
 
 ### Mejores Prácticas
 
@@ -389,7 +389,7 @@ const fetchExchangeRates = async () => {
 
 ---
 
-## 📊 Rate Limits
+## Rate Limits
 
 | Servicio | Límite | Plan |
 |----------|--------|------|
@@ -399,7 +399,7 @@ const fetchExchangeRates = async () => {
 
 ---
 
-## 🐛 Debugging
+## Debugging
 
 ### Ver requests de Supabase
 
@@ -421,7 +421,7 @@ console.log('AI Response:', JSON.stringify(response, null, 2))
 
 ---
 
-## 📚 Recursos
+## Recursos
 
 - [Supabase Docs](https://supabase.com/docs)
 - [Anthropic Claude Docs](https://docs.anthropic.com/)
@@ -429,4 +429,4 @@ console.log('AI Response:', JSON.stringify(response, null, 2))
 
 ---
 
-**Actualizado:** Diciembre 2024
+Actualizado: Diciembre 2024

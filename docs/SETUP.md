@@ -1,10 +1,10 @@
-# 🛠️ Guía de Instalación y Configuración
+# Guía de Instalación y Configuración
 
 Esta guía te llevará paso a paso desde la clonación del repositorio hasta tener la aplicación corriendo localmente.
 
 ---
 
-## 📋 Requisitos Previos
+## Requisitos Previos
 
 Antes de comenzar, asegúrate de tener instalado:
 
@@ -15,7 +15,7 @@ Antes de comenzar, asegúrate de tener instalado:
 
 ---
 
-## 🚀 Instalación Rápida
+## Instalación Rápida
 
 ### 1. Clonar el repositorio
 
@@ -80,7 +80,7 @@ La aplicación estará disponible en: **http://localhost:3000**
 
 ---
 
-## 🎯 Configuración Opcional
+## Configuración Opcional
 
 ### Integración de IA (Claude API)
 
@@ -110,7 +110,7 @@ Para habilitar suscripciones premium:
 
 ---
 
-## 📦 Scripts Disponibles
+## Scripts Disponibles
 
 ```bash
 # Desarrollo
@@ -134,7 +134,7 @@ npm run deploy           # Deploy a GitHub Pages
 
 ---
 
-## 🗂️ Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 budget-calculator-react/
@@ -155,7 +155,7 @@ budget-calculator-react/
 
 ---
 
-## 🐛 Solución de Problemas
+## Solución de Problemas
 
 ### Error: "Supabase client not initialized"
 
@@ -202,7 +202,7 @@ taskkill /PID [número_de_proceso] /F
 
 ---
 
-## 📱 Instalación como PWA (Móvil)
+## Instalación como PWA (Móvil)
 
 La app puede instalarse en tu móvil como app nativa:
 
@@ -218,7 +218,7 @@ La app puede instalarse en tu móvil como app nativa:
 
 ---
 
-## 🎨 Personalización
+## Personalización
 
 ### Cambiar colores del tema
 
@@ -238,27 +238,27 @@ Edita `src/constants/categories.js`
 
 ---
 
-## 📚 Próximos Pasos
+## Próximos Pasos
 
 Una vez tengas la app corriendo:
 
-1. **Crea tu cuenta** y haz login
-2. **Agrega transacciones de prueba** para ver cómo funciona
-3. **Explora las features**:
+1. Crea tu cuenta y haz login
+2. Agrega transacciones de prueba para ver cómo funciona
+3. Explora las features:
    - Gráficos interactivos
    - Metas financieras
    - Sistema de logros
    - Exportar reportes PDF
-4. **Lee la documentación completa**: [README.md](../README.md)
+4. Lee la documentación completa: [README.md](../README.md)
 
 ---
 
-## 🆘 ¿Necesitas ayuda?
+## Necesitas ayuda?
 
-- **Issues**: [GitHub Issues](https://github.com/risso-patron/budget-calculator-react/issues)
-- **Documentación API**: [docs/API.md](./API.md)
-- **Email**: luisrissopa@gmail.com
+- Issues: [GitHub Issues](https://github.com/risso-patron/budget-calculator-react/issues)
+- Documentación API: [docs/API.md](./API.md)
+- Email: luisrissopa@gmail.com
 
 ---
 
-**¡Listo para empezar! 🚀**
+Listo para empezar.

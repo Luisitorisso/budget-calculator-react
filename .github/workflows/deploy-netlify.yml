@@ -10,19 +10,19 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: 📥 Checkout code
+    - name: Checkout code
       uses: actions/checkout@v4
     
-    - name: 🔧 Setup Node.js
+    - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '20.x'
         cache: 'npm'
     
-    - name: 📦 Install dependencies
+    - name: Install dependencies
       run: npm ci
     
-    - name: 🏗️ Build project
+    - name: Build project
       run: npm run build
       env:
         VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
@@ -30,7 +30,7 @@ jobs:
         VITE_ANTHROPIC_API_KEY: ${{ secrets.VITE_ANTHROPIC_API_KEY }}
         VITE_STRIPE_PUBLIC_KEY: ${{ secrets.VITE_STRIPE_PUBLIC_KEY }}
     
-    - name: 🚀 Deploy to Netlify
+    - name: Deploy to Netlify
       uses: nwtgck/actions-netlify@v2
       with:
         publish-dir: './dist'
@@ -45,5 +45,5 @@ jobs:
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
       timeout-minutes: 5
     
-    - name: ✅ Deployment successful
-      run: echo "🎉 Successfully deployed to Netlify!"
+    - name: Deployment successful
+      run: echo "Successfully deployed to Netlify"

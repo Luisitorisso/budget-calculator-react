@@ -1,4 +1,4 @@
-# 📝 Changelog
+# Changelog
 
 Todos los cambios notables en este proyecto serán documentados en este archivo.
 
@@ -9,7 +9,7 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
-### 🎯 En desarrollo
+### En desarrollo
 - Migración progresiva a TypeScript
 - Tests con Vitest
 - CI/CD con GitHub Actions
@@ -18,7 +18,7 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [1.2.0] - 2024-12-17
 
-### ✨ Agregado
+### Agregado
 - Sistema de gamificación con 24 logros desbloqueables
 - Animaciones WebP optimizadas (reemplazando Lottie)
 - Integración completa de IA con Claude (análisis financiero)
@@ -31,20 +31,20 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 - Importación masiva desde CSV
 - Exportación a PDF con reportes profesionales
 
-### 🔧 Cambiado
+### Cambiado
 - Migrado de Vite 5 a Rolldown-Vite 7.1 (build 3x más rápido)
 - Actualizado React a v19.1
 - Mejorado sistema de gráficos con Recharts
 - Optimizado bundle size (reducido 40%)
 - Refactorizada arquitectura de componentes
 
-### 🐛 Corregido
+### Corregido
 - Error de persistencia en localStorage
 - Bug de duplicación en transacciones
 - Problema de responsividad en móviles
 - Warnings de ESLint
 
-### 📚 Documentación
+### Documentación
 - Creado README.md profesional
 - Agregada guía de setup completa
 - Documentación de APIs
@@ -54,14 +54,14 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [1.1.0] - 2024-11-15
 
-### ✨ Agregado
+### Agregado
 - Autenticación con Supabase
 - Sincronización en la nube
 - Recuperación de contraseña
 - Perfil de usuario
 - 4 tipos de gráficos (Donut, Línea, Barras, Comparativo)
 
-### 🔧 Cambiado
+### Cambiado
 - Migrado de localStorage a Supabase
 - Mejorada UI con TailwindCSS
 
@@ -69,7 +69,7 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## [1.0.0] - 2024-10-01
 
-### ✨ Lanzamiento Inicial
+### Lanzamiento Inicial
 - Registro de ingresos y gastos
 - Cálculo de balance automático
 - Categorización de gastos
@@ -82,13 +82,13 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 
 ## Tipos de Cambios
 
-- **✨ Agregado**: para nuevas funcionalidades
-- **🔧 Cambiado**: para cambios en funcionalidades existentes
-- **❌ Deprecado**: para funcionalidades que serán removidas
-- **🗑️ Removido**: para funcionalidades eliminadas
-- **🐛 Corregido**: para corrección de bugs
-- **🔒 Seguridad**: para cambios de seguridad
-- **📚 Documentación**: para cambios en docs
+- **Agregado**: para nuevas funcionalidades
+- **Cambiado**: para cambios en funcionalidades existentes
+- **Deprecado**: para funcionalidades que serán removidas
+- **Removido**: para funcionalidades eliminadas
+- **Corregido**: para corrección de bugs
+- **Seguridad**: para cambios de seguridad
+- **Documentación**: para cambios en docs
 
 ---
 

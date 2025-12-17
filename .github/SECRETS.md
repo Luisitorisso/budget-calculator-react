@@ -1,8 +1,8 @@
-# 🔐 GitHub Secrets Configuration
+# GitHub Secrets Configuration
 
 Para que los GitHub Actions funcionen correctamente, necesitas configurar estos secrets:
 
-## 📍 Cómo agregar Secrets
+## Cómo agregar Secrets
 
 1. Ve a tu repositorio en GitHub
 2. Click en **Settings** → **Secrets and variables** → **Actions**
@@ -11,7 +11,7 @@ Para que los GitHub Actions funcionen correctamente, necesitas configurar estos 
 
 ---
 
-## 🔑 Secrets Requeridos
+## Secrets Requeridos
 
 ### Para CI/CD Básico
 
@@ -62,25 +62,25 @@ Obtener en: https://codecov.io/
 
 ---
 
-## ✅ Verificación
+## Verificación
 
 Después de configurar los secrets:
 
 1. Haz un commit y push
-2. Ve a la pestaña **Actions** en GitHub
+2. Ve a la pestaña Actions en GitHub
 3. Verifica que los workflows se ejecuten correctamente
 
 ---
 
-## 🚨 Importante
+## Importante
 
-- **NUNCA** commitees secrets directamente en el código
+- NUNCA commitees secrets directamente en el código
 - Los secrets son encriptados y solo accesibles por GitHub Actions
 - Puedes actualizar secrets en cualquier momento sin afectar el código
 
 ---
 
-## 📚 Más información
+## Más información
 
 - [GitHub Encrypted Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets)
 - [Netlify Deploy with GitHub Actions](https://github.com/nwtgck/actions-netlify)
